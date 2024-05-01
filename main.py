@@ -3,7 +3,7 @@ import pandas as pd
 
 client = SSLClient(
     host="185.243.3.103", port=443,
-    user='admin', password='y1-B@jsgyeTS%fG!qLmF',
+    user='admin', password='',
     sslverifyhost=False)
 
 dict_network = {"NET_WAN": "192.168.250.0/29", "NET_DMZ":"172.20.1.0/24", "NET_DATABASE": "10.30.1.0/24", "NET_MGMT-NTK": "10.100.100.0/24", "NET_BACKUP": "10.20.1.0/24","NET_MGMT": "10.10.1.0/24"}
