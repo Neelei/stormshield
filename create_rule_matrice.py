@@ -15,6 +15,11 @@ def create_service(protocol, num_protocol):
     client.send_command(f'CONFIG OBJECT SERVICE NEW name={service_name} port={num_protocol} proto={protocol}')
     client.send_command(f'CONFIG OBJECT ACTIVATE')
 
+def check_host_exist():
+    # Commande pour lister tous les hôtes
+    existing_hosts = f'CONFIG OBJECT HOST LIST'
+
+
 def generate_firewall_rule(src_ip, dest_ip, list_ports: list):
     # protocol, port = protocol_port.split('-') # recuperation du type de protocol et du numero de port qui sont séparé par "-"
     rule_name = f"Rule_{uuid.uuid4().hex}"  # Utiliser UUID pour garantir un nom unique
