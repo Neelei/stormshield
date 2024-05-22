@@ -1,32 +1,35 @@
 import pandas
 from stormshield.sns.sslclient import SSLClient
 #
-# client = SSLClient(
-#     host="185.243.3.103", port=443,
-#     user='admin', password='',
-#     sslverifyhost=False)
+client = SSLClient(
+    host="172.16.92.193", port=443,
+    user='admin', password='Toto1234',
+    sslverifyhost=False)
 
-excel_data_df = pandas.read_excel('matrice-template.xlsx')
-print(excel_data_df['VM1\n172.16.1.0/24'].to_dict())
+# excel_data_df = pandas.read_excel('matrice-template.xlsx')
+# print(excel_data_df['VM1\n172.16.1.0/24'].to_dict())
 
-# dict_network = {"NET_WAN": "192.168.250.0/29", "NET_DMZ":"172.20.1.0/24", "NET_DATABASE": "10.30.1.0/24", "NET_MGMT-NTK": "10.100.100.0/24", "NET_BACKUP": "10.20.1.0/24","NET_MGMT": "10.10.1.0/24"}
+dict_network = {'USERS CLINIQUE': '10.11.16.0/24', 'WIFI PRIV': '10.12.16.0/24', 'WIFI PATIENT': '10.13.16.0/24', 'MGMT': '10.16.16.0/24', 'DATACORE': '10.17.16.0/24', 'BASTION': '10.18.16.0/24', 'BACKUP': '10.19.16.0/24', 'TELEPHONIE': '10.20.16.0/24', 'CONTROLE D’ACCES': '10.21.16.0/24', 'GTC': '10.22.16.0/24', 'INTERPHONIE': '10.23.16.0/24', 'APPEL MALADE': '10.24.16.0/24', 'CAMERA': '10.27.16.0/24', 'SALTO': '10.28.16.0/24', 'SOLUCARE': '10.35.16.0/24', 'DMZ': '10.60.16.0/24', 'SERVEURS': '10.120.16.0/24', 'MGMT-SW': '10.201.16.0/24', 'MGMT-AP': '10.202.16.0/24'}
+
 
 # Pour chaque clé dans le dictionnaire
-# position = 6
-# for key in dict_network:
-#     # Pour chaque autre clé dans le dictionnaire (différente de la clé actuelle)
-#     color = "99CC00"
-#     for other_key in dict_network:
-#         if key != other_key:
-#             # Afficher la ligne de configuration avec la clé actuelle et l'autre clé
-#             if key =="NET_WAN":
-#                 color = "FF0000"
-#             if key == "NET_DMZ":
-#                 color = "CC99FF"
-#             print(f'CONFIG FILTER RULE ADDSEP index=5 type=filter  collapse=0 color={color} comment="{key} to {other_key}"')
-#             print(f'CONFIG FILTER RULE INSERT index=5 type=filter state=off action=pass srctarget={key} dsttarget={other_key} global=0 dstport=any output=xml loglevel=log')
-# print("CONFIG FILTER ACTIVATE")
+position = 6
+for key in dict_network:
+    # Pour chaque autre clé dans le dictionnaire (différente de la clé actuelle)
+    color = "99CC00"
+    for other_key in dict_network:
+        if key != other_key:
+            # Afficher la ligne de configuration avec la clé actuelle et l'autre clé
+            if key =="NET_WAN":
+                color = "FF0000"
+            if key == "NET_DMZ":
+                color = "CC99FF"
+            result1 = client.send_command(f'CONFIG FILTER RULE ADDSEP index=8 type=filter  collapse=0 color={color} comment="{key} to {other_key}"')
+            result2 = client.send_command(f'CONFIG FILTER RULE INSERT index=8 type=filter state=off action=pass srctarget={key} dsttarget={other_key} global=0 dstport=any output=xml loglevel=log')
 
+
+# client.send_command('CONFIG FILTER RULE ADDSEP index=5 type=filter  collapse=0 color=99CC00 comment="AGAAGAAAA"')
+# client.send_command("CONFIG FILTER ACTIVATE")
 # list_peer = client.send_command("CONFIG IPSEC PEER LIST")
 # show_peer = client.send_command("CONFIG IPSEC PEER SHOW  name=Site_SITE3-WAN1")
 # ipsec_list_gw = client.send_command("CONFIG IPSEC POLICY GATEWAY LIST slot=01")
@@ -58,4 +61,4 @@ print(excel_data_df['VM1\n172.16.1.0/24'].to_dict())
 
 
 
-# client.disconnect()
+client.disconnect()
