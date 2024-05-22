@@ -4,7 +4,7 @@ import ipaddress
 from stormshield.sns.sslclient import SSLClient
 #
 client = SSLClient(
-    host="172.16.92.193", port=443,
+    host="172.16.92.129", port=443,
     user='admin', password='Toto1234',
     sslverifyhost=False)
 
